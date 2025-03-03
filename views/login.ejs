@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Log in</title>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="h-screen bg-gray-100 flex items-center justify-center">    
+  <!-- Container to center everything -->
+  <div class="text-center space-y-6">
+    <!-- Heading -->
+    <h1 class="font-bold text-3xl text-gray-800">Welcome Back!</h1>
+    
+    <!-- Form -->
+    <form 
+      action="/user/login" 
+      method="post" 
+      class="max-w-sm w-[500px] bg-white p-6 rounded-lg shadow-md"
+    >
+      <div class="mb-5">
+        <label for="Username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Username</label>
+        <input 
+          type="text" 
+          name="username" 
+          id="Username" 
+          class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" 
+          required 
+        />
+      </div>
+
+      <div class="mb-5">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+        <input 
+          type="password" 
+          name="password" 
+          id="password" 
+          class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" 
+          required 
+        />
+      </div>
+      
+      <button 
+        type="submit" 
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Login
+      </button>
+    </form>
+
+    <!-- Register Section -->
+    <div class="register flex items-center gap-3 justify-center">
+      <span class="text-gray-700 font-medium capitalize">not signed in?</span>
+      <a 
+        class="w-200px flex justify-center items-center text-blue-600 hover:text-blue-500 underline" 
+        href="/register"
+      >
+        Sign in
+      </a>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</body>
+</html>
