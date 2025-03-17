@@ -20,33 +20,49 @@ router.get("/register",(req,res)=>{
 })
 
 router.post("/register",
-
-    body('email').trim().isEmail().isLength({min:13}),
-    body('password').trim().isLength({min:5}),
-    body('username').trim().isLength({min:3}),
+  body('email').trim().isEmail().isLength({min:13}),
+  body('password').trim().isLength({min:5}),
+  body('username').trim().isLength({min:3}),
     
-     async (req,res)=>{
-        // handling errors
-    const errors = validationResult(req)
-    if(!errors.isEmpty()){
-          return res.status(400).json({
-            errors:errors.array(),
-            message:"InValid Data"
-           })
+  async (req, res) => {
+    // Handling errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("register", {
+        errors: errors.array(),
+        message: "Invalid Data"
+      });
     }
-    // when there are no erros we will proceed saving data
-    // we will convert password into hash form so that our data cannot be accessed by hacker
-    // we use bcrypt pkg for that
-    const {username,email,password} = req.body
-    const hashPassword = await bcrypt.hash(password,10)
-    const Saveuser = await userModel.create({
-        username,
-        email,
-        password:hashPassword
-    })
-    // sending input data in form of json
-    res.render("home")
-})
+
+    const { username, email, password } = req.body;
+
+    const existingUser = await userModel.findOne({
+      $or: [{ email: email }, { username: username }]
+    });
+
+    if (existingUser) {
+      console.log("User already exists"); // Logs in the backend
+      return res.status(400).send("Username is already taken"); // Sends to the frontend
+    
+      return;
+    }
+
+  
+
+
+
+    // Hash password and save user
+    const hashPassword = await bcrypt.hash(password, 10);
+    await userModel.create({
+      username,
+      email,
+      password: hashPassword
+    });
+
+    res.redirect("login");
+  }
+);
+
 
 router.get("/login",(req,res)=>{
        res.render("login")
@@ -74,8 +90,8 @@ router.post("/login",
       })
 
       if(!Authuser){
-         return res.status(400).json({
-            message:"username or password is incorrect"
+         return res.status(400).render("login", {
+            message: "Username or password is incorrect"
           })
       }
          // comparing password
