@@ -23,7 +23,5 @@ app.use("/user",userRoutes)  // handling routes
 app.get("/",(req,res)=>{
     res.render("login")
 })
-app.listen(3000,()=>{
-    console.log("server running on port 3000")
-})
+module.exports = app
 
