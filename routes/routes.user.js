@@ -90,10 +90,9 @@ router.post("/login",
       })
 
       if(!Authuser){
-         return res.status(400).render("login", {
-            message: "Username or password is incorrect"
-          })
-      }
+         return res.send("Username or password is incorrect")
+          }
+      
          // comparing password
 
          const AuthPassword =  await bcrypt.compare(password,Authuser.password)
